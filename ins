@@ -7,9 +7,12 @@ cd "${PREFIX%/*}"
 mkdir -p ./tqs
 cd ./tqs
 curl -ZLo tqs.zip 'https://github.com/termux-pacman/termux-packages/releases/latest/download/bootstrap-aarch64.zip'
-unzip tqs.zip && rm -f tqs.zip
-cat SYMLINKS.txt | awk -F "←" '{system("ln -sv '"'"'"$1"'"'"' '"'"'"$2"'"'"'")}'
-rm -f SYMLINKS.txt
+unzip tqs.zip && rm -f ./tqs.zip
+syms="$(cat ./SYMLINKS.txt)"
+rm -f ./SYMLINKS.txt
+for sym in ${syms/←/ /}; do
+  ln -sv "${sym}" &
+done
 cd ..
 rm -rf "${PREFIX}"
 mv ./tqs "${PREFIX}"
