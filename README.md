@@ -1,4 +1,4 @@
 in termux failsafe
-```
-sh -c "$(curl -f 'httls://raw.githubusercontent.com/nedorazrab0/tqs/main/install.sh')"
+```shell
+sh -c "$(curl -f 'https://raw.githubusercontent.com/nedorazrab0/tqs/main/install.sh')"
 ```
