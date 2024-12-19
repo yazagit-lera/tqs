@@ -10,7 +10,7 @@ curl -LZ -o tqs.zip 'https://github.com/termux-pacman/termux-packages/releases/l
 unzip tqs.zip && rm -f ./tqs.zip
 
 cat ./SYMLINKS.txt | while read -r sym; do
-  ln -sv "${sym//←/ /}" &
+  ln -sv "${sym//←/' '}" &
 done
 wait
 rm -f ./SYMLINKS.txt
