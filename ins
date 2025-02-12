@@ -1,19 +1,21 @@
 #!/system/bin/env sh
 #
 # Setup pacman in termux
+
 set -e
+dir="${PREFIX%/*}/tqs"
 
-cd "${PREFIX%/*}"
-rm -rf ./tqs
-mkdir -p ./tqs
-cd ./tqs
-curl -LZ -o ./tqs.zip "https://github.com/termux-pacman/termux-packages/\
-releases/latest/download/bootstrap-aarch64.zip"
-unzip ./tqs.zip && rm -f ./tqs.zip
+[[ -d "${dir}" ]] rm -rf "${dir}"
+mkdir -p "${dir}"
 
-cat ./SYMLINKS.txt \
-  | awk -F '←' '{system("ln -sv '"'"'"$1"'"'"' '"'"'"$2"'"'"' &")}'
-rm -f ./SYMLINKS.txt
-cd ..
+curl -fLZ \
+  "https://github.com/termux-pacman/termux-packages/\
+releases/latest/download/bootstrap-aarch64.zip" \
+  | unzip -d "${dir}"
+
+awk -F '←' \
+  '{system("ln -sv '"'"'"$1"'"'"' '"'"'"$2"'"'"' &")}' \
+  "${dir}/SYMLINKS.txt"
+rm -f "${dir}/SYMLINKS.txt"
 rm -rf "${PREFIX}"
-mv ./tqs "${PREFIX}"
+mv "${dir}" "${PREFIX}"
