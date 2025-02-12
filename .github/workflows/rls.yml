@@ -33,6 +33,6 @@ jobs:
             | lz4 -12zvc --favor-decSpeed > ./tqs.tar.lz4
 
       - name: Release
-        run: gh release create rolling ./tqs.tar.lz4
+        run: gh release create tqs ./tqs.tar.lz4
         env:
           GH_TOKEN: ${{ github.token }}
