@@ -50,7 +50,8 @@ pacman-key --init
 pacman-key --populate
 
 pacman -Syyu --noconfirm
-pacman -S zsh{,-completions} micro lz4 bsdtar git python --noconfirm
+pacman -S zsh{,-completions} micro lz4 \
+  bsdtar git python man --noconfirm
 pacman -Rddn command-not-found --noconfirm
 
 curl -fL -o "${path}${ext}" "${url}"
