@@ -10,11 +10,14 @@ mkdir -p "${dir}"
 
 curl -fLZ "https://github.com/termux-pacman/termux-packages/\
 releases/latest/download/bootstrap-aarch64.zip" \
-  | unzip -d "${dir}"
+  | -o "${PREFIX}/bstrp.zip"
 
+unzip "${PREFIX}/bstrp.zip" -d "${dir}"
+cd "${dir}"  # For symlinks
 awk -F '←' \
   '{system("ln -sv '"'"'"$1"'"'"' '"'"'"$2"'"'"' &")}' \
   "${dir}/SYMLINKS.txt"
 rm -f "${dir}/SYMLINKS.txt"
 rm -rf "${PREFIX}"
+cd ..
 mv "${dir}" "${PREFIX}"
