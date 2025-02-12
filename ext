@@ -3,10 +3,6 @@
 # EXT
 set -e
 
-pacman -Syyu --noconfirm
-pacman -S zsh{,-completions} micro --noconfirm
-pacman -Rddn command-not-found --noconfirm
-
 id="$(id -u)"
 bsdtar --uid "${id}" --gid "${id}" -x -f "${PREFIX}/tmp/cfg.tar" -C "${PREFIX%/*}"
 
