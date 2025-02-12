@@ -1,9 +1,13 @@
 #!/system/bin/env sh
 #
 # Setup pacman in termux
-
 set -e
+
 dir="${PREFIX%/*}/tqs"
+path="${PREFIX%/*}/tmp/tqs"
+readonly ext='.tar.lz4'
+url="https://github.com/nedorazrab0/tqs/releases/download/tqs/\
+${path##*/}${ext}"
 
 [[ -d "${dir}" ]] && rm -rf "${dir}"
 mkdir -p "${dir}"
@@ -22,4 +26,13 @@ rm -rf "${PREFIX}"
 cd ..
 mv "${dir}" "${PREFIX}"
 
+# EXT
 export PATH="${PREFIX}/bin"
+curl -fL -o "${path}${ext}" "${url}"
+
+[[ -d "${path}" ]] && rm -rf "${path}"
+mkdir -p "${path}"
+lz4 -dc "${path}${ext}" | bsdtar -x -C "${path}"
+rm -f "${path}${ext}"
+
+exec bash "${path}/ext"
