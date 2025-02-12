@@ -10,7 +10,7 @@ mkdir -p "${dir}"
 
 curl -fLZ "https://github.com/termux-pacman/termux-packages/\
 releases/latest/download/bootstrap-aarch64.zip" \
-  | -o "${PREFIX}/bstrp.zip"
+  -o "${PREFIX}/bstrp.zip"
 
 unzip "${PREFIX}/bstrp.zip" -d "${dir}"
 cd "${dir}"  # For symlinks
