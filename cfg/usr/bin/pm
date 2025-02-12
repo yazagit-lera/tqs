@@ -1,0 +1,10 @@
+#!/data/data/com.termux/files/usr/bin/bash
+#
+# Short pacman
+set -e
+
+if [[ -n "${@}" ]]; then
+  pacman "${@}"
+else
+  pacman -Scc --noconfirm
+fi
