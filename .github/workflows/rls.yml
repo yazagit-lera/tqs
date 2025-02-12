@@ -1,0 +1,38 @@
+name: rls
+on: workflow_dispatch
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Delete old release
+        run: gh release delete tqs --cleanup-tag -y || true
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Install pkgs
+        run: |
+          sudo apt-get update
+          sudo apt-get install libarchive-tools
+
+      - name: Archive cfg/
+        run: |
+          chmod -R 755 ./cfg/usr/local/bin
+          bsdtar -b1 -C ./cfg -cv . > ./cfg.tar
+          rm -rf ./cfg
+
+      - name: Compress
+        run: |
+          bsdtar \
+            --exclude-vcs --exclude=./{.github/,README.md} -b1 -cv ./* \
+            | lz4 -12zvc --favor-decSpeed > ./tqs.tar.lz4
+
+      - name: Release
+        run: gh release create rolling ./tqs.tar.lz4
+        env:
+          GH_TOKEN: ${{ github.token }}
