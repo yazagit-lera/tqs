@@ -11,5 +11,5 @@ chsh -s zsh
 rm -rf "${PREFIX}/etc/termux"
 echo > "${PREFIX}/etc/motd"
 
-echo '- That is all, close old sessions
-then start new one'
+echo '- That is all. Close old sessions,
+  then start new one'
