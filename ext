@@ -12,10 +12,10 @@ rm -rf "${PREFIX}/etc/termux"
 echo > "${PREFIX}/etc/motd"
 [[ ! -d "${PREFIX%/*}/home/storage" ]] && termux-setup-storage
 
-curl -f -o "${PREFIX}/tmp/api.apk" \
-  'https://f-droid.org/repo/com.termux.api_51.apk'
-termux-setup-package-manager
-termux-open "${PREFIX}/tmp/api.apk"
+#curl -f -o "${PREFIX}/tmp/api.apk" \
+#  'https://f-droid.org/repo/com.termux.api_51.apk'
+#termux-setup-package-manager
+#termux-open "${PREFIX}/tmp/api.apk"
 
 echo '- Press [Enter] to continue'
 read -r ans && unset ans
