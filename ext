@@ -12,10 +12,10 @@ rm -rf "${PREFIX}/etc/termux"
 echo > "${PREFIX}/etc/motd"
 termux-setup-storage
 
-curl -f -o "${PREFIX%/*}/tmp/api.apk" \
+curl -f -o "${PREFIX}/tmp/api.apk" \
   'https://f-droid.org/repo/com.termux.api_51.apk'
 termux-setup-package-manager
-termux-open "${PREFIX%/*}/tmp/api.apk"
+termux-open "${PREFIX}/tmp/api.apk"
 echo > "${PREFIX%/*}/home/.termux/termux.properties"
 
 echo '- That is all. Close old sessions,
