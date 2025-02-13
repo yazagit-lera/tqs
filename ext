@@ -10,7 +10,7 @@ bsdtar --uid "${id}" --gid "${id}" \
 chsh -s zsh
 rm -rf "${PREFIX}/etc/termux"
 echo > "${PREFIX}/etc/motd"
-termux-setup-storage
+[[ ! -d "${PREFIX%/*}/home/storage" ]] && termux-setup-storage
 
 curl -f -o "${PREFIX}/tmp/api.apk" \
   'https://f-droid.org/repo/com.termux.api_51.apk'
