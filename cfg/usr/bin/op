@@ -6,11 +6,18 @@ set -e
 if [[ "${@}" =~ '-h' ]]; then
   cat << 'EOF'
 - (Re)start `sshd`
-  Use `k` option to kill server
+  Use option `k` to kill the server
+  and `c` to clear authorized keys
 - Example:
   op k
+  op c
 EOF
 
+  exit 0
+fi
+
+if [[ "${1}" ]]; then
+  echo > "${HOME}/.ssh/authorized_keys"
   exit 0
 fi
 
