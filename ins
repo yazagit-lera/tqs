@@ -52,7 +52,7 @@ pacman-key --populate
 
 pacman -Syyu --noconfirm
 pacman -S zsh{,-completions} micro lz4 openssh openssl-tool \
-  bsdtar git python man tsu catimg termux-api --noconfirm
+  bsdtar git python man tsu file --noconfirm
 pacman -Rddn command-not-found --noconfirm
 
 rm -rf "${PREFIX%/*}/home/"*
