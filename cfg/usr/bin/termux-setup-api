@@ -1,0 +1,16 @@
+#!/data/data/com.termux/files/usr/bin/env bash
+#
+# Setup termux-api
+
+pacman -Sy termux-api --noconfirm
+
+apk="${PREFIX}/tmp/api.apk"
+conf="${HOME}/.termux/termux.properties"
+curl -L -o "${apk}" \
+  'https://f-droid.org/repo/com.termux.api_51.apk'
+
+echo 'allow-external-apps = true' > "${HOME}"
+termux-open "${apk}"
+echo '- Press [Enter] to continue'
+read -r ans && unser ans
+#wip
