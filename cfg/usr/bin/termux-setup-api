@@ -12,7 +12,7 @@ curl -fL -o "${apk}" \
 echo 'allow-external-apps = true' > "${conf}"
 termux-open "${apk}"
 echo '- Press [Enter] to continue'
-read -r ans && unser ans
+read -r ans && unset ans
 echo 'allow-external-apps = false' > "${conf}"
 
 pacman -Sy termux-api --noconfirm
