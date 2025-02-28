@@ -19,7 +19,7 @@ def helpme():
         "  p  Use punctuation symbols\n" + \
         "  f  Use all above\n" + \
         "  e  Generate passwords in an easy memorable look\n" + \
-        "     (2+3+3)+(2+3+3), always 16 chars lenght. 104 entropy bits\n" + \
+        "     (2+3+3) + (2+3+3), always 16 chars lenght. 104 entropy bits\n" + \
         "- Example:\n" + \
         "  pwg f 39\n" + \
         "  pwg ul 228\n" + \
