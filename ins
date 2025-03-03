@@ -12,8 +12,14 @@ ${path##*/}${ext}"
 [[ -d "${dir}" ]] && rm -rf "${dir}"
 mkdir -p "${dir}"
 
+if [[ "$(uname -m)" == 'aarch64' ]]; then
+  arch='aarch64'
+else
+  arch='arm'
+fi
+
 curl -fLZ "https://github.com/termux-pacman/termux-packages/\
-releases/latest/download/bootstrap-aarch64.zip" \
+releases/latest/download/bootstrap-${arch}.zip" \
   -o "${PREFIX}/bstrp.zip"
 
 unzip "${PREFIX}/bstrp.zip" -d "${dir}"
@@ -31,7 +37,7 @@ export PATH="${PREFIX}/bin"
 
 echo '[options]
 HoldPkg = pacman
-Architecture = aarch64
+Architecture = auto
 
 Color
 CheckSpace
