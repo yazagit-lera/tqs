@@ -3,7 +3,7 @@
 # Openssh helper
 
 set -e
-confpath="${PREFIX}/etc/ssh/sshd_config.d"
+passconf="${PREFIX}/etc/ssh/sshd_config.d/passauth.conf"
 
 if [[ "${@}" =~ '-h' ]]; then
   cat << 'EOF'
@@ -22,9 +22,9 @@ EOF
 fi
 
 if [[ "${1}" == 'pn' ]]; then
-  echo 'PasswordAuthentication no' > "${confpath}"
+  echo 'PasswordAuthentication no' > "${passconf}"
 elif [[ "${1}" == 'py' ]]; then
-  echo 'PasswordAuthentication yes' > "${confpath}"
+  echo 'PasswordAuthentication yes' > "${passconf}"
 fi
 
 if [[ "${1}" == 'c' ]]; then
