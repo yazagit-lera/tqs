@@ -10,7 +10,7 @@ bsdtar --uid "${id}" --gid "${id}" \
 chsh -s zsh
 rm -rf "${PREFIX}/etc/termux"
 echo > "${PREFIX}/etc/motd"
-[[ ! -d "${PREFIX%/*}/home/storage" ]] && termux-setup-storage
+[[ ! -d "${HOME}/storage" ]] && termux-setup-storage
 passwd
 
 echo '- That is all. Close all sessions (CTRL + D)'
