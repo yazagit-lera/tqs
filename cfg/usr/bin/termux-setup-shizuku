@@ -1,0 +1,21 @@
+#!/data/data/com.termux/files/usr/bin/env bash
+#
+# Setup Shizuku
+# https://github.com/RikkaApps/Shizuku
+
+set -e
+apk="${TMPDIR}/shizuku.apk"
+conf="${HOME}/.termux/termux.properties"
+
+link() {
+  curl -s https://api.github.com/repos/RikkaApps/Shizuku/releases/latest \
+    | grep "browser_download_url.*apk" | cut -d ':' -f '2,3' | tr -d '"'
+}
+
+curl -fL -o "${apk}" "$(link)"
+
+echo 'allow-external-apps = true' > "${conf}"
+termux-open "${apk}"
+echo '- Press [Enter] to continue'
+read -r ans && unset ans
+echo 'allow-external-apps = false' > "${conf}"
