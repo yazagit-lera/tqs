@@ -1,0 +1,13 @@
+#!/data/data/com.termux/files/usr/bin/env bash
+#
+# Connect to Shizuku, thanks to RikkaW
+# https://github.com/RikkaApps/Shizuku
+
+set -e
+dex="${PREFIX}/lib/rish_shizuku.dex"
+
+[[ -w "${dex}" ]] && chmod 400 "${dex}"
+export RISH_APPLICATION_ID='com.termux'
+
+/system/bin/app_process -Djava.class.path="${dex}" /system/bin \
+  --nice-name=rish rikka.shizuku.shell.ShizukuShellLoader "${@}"
