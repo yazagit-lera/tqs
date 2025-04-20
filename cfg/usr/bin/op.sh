@@ -1,22 +1,33 @@
 #!/data/data/com.termux/files/usr/bin/env bash
 #
 # Openssh helper
+
 set -e
+confpath="${PREFIX}/etc/ssh/sshd_config.d"
 
 if [[ "${@}" =~ '-h' ]]; then
   cat << 'EOF'
 - (Re)start `sshd`
   Use option `k` to kill the server
   and `c` to clear authorized keys
+
+  py - Enable password auth (for first connect)
+  pn - Disable password auth
 - Example:
-  op k
+  op py
   op c
 EOF
 
   exit 0
 fi
 
-if [[ "${1}" ]]; then
+if [[ "${1}" == 'pn' ]]; then
+  echo 'PasswordAuthentication no' > "${confpath}"
+elif [[ "${1}" == 'py' ]]; then
+  echo 'PasswordAuthentication yes' > "${confpath}"
+fi
+
+if [[ "${1}" == 'c' ]]; then
   echo > "${HOME}/.ssh/authorized_keys"
   exit 0
 fi
