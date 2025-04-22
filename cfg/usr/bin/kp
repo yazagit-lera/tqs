@@ -1,0 +1,17 @@
+#!/data/data/com.termux/files/usr/bin/env bash
+#
+# Elevate privileges
+set -e
+
+unset LD_LIBRARY_PATH LD_PRELOAD
+su='/system/bin/su'
+
+if [[ ! -x "${su}" ]]; then
+  echo "- ${su}"
+  echo '  does not work'
+  exit 1
+fi
+
+[[ -n "${@}" ]] && opt='-c'
+PATH="${PATH}:/system_ext/bin:/product/bin:/vendor/bin:/system/bin" \
+  exec "${su}" -c "${SHELL}" "${opt}" "${@}"
