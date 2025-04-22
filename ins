@@ -33,7 +33,7 @@ unzip "${PREFIX}/bootstrap.zip" -d "${bootstrap}"
 cd "${bootstrap}"  # For symlinks
 awk -F '←' \
   '{system("ln -sv '"'"'"$1"'"'"' '"'"'"$2"'"'"' &")}' \
-  "${dir}/SYMLINKS.txt"
+  "${bootstrap}/SYMLINKS.txt"
 
 rm -f "${bootstrap}/SYMLINKS.txt"
 rm -rf "${PREFIX}"
@@ -71,4 +71,4 @@ rm -rf "${HOME}/"*
 mkdir -p "${tmp}"
 curl -fL "${url}" | lz4 -dc | bsdtar -x -C "${tmp}"
 
-exec bash "${path}/ext"
+exec bash "${tmp}/ext"
