@@ -13,4 +13,4 @@ echo > "${PREFIX}/etc/motd"
 [[ ! -d "${HOME}/storage" ]] && termux-setup-storage
 passwd
 
-echo '- That is all. Close all sessions (CTRL + D)'
+kill "${TERMUX_APP_PID}"
