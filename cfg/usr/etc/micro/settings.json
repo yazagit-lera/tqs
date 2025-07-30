@@ -1,14 +1,14 @@
-// Micro's config
-
 {
-  "clipboard": "terminal",
-  "colorscheme": "y2ai",
+  "clipboard": "external",
+  "colorscheme": "arch39",
   "diffgutter": true,
   "infobar": false,
   "parsecursor": true,
   "mouse": false,
   "scrollbar": true,
-  "statusformatl": "=== $(filename) [$(line),$(col)] $(modified)",
+  "sucmd": "kp",
+  "mkparents": true,
+  "statusformatl": "==== $(filename) [$(line),$(col)] $(modified)",
   "statusformatr": "",
   "tabsize": 2,
   "tabstospaces": true,
