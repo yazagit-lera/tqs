@@ -4,14 +4,33 @@
 set -e
 
 unset LD_LIBRARY_PATH LD_PRELOAD
-su='/system/bin/su'
 
-if [[ ! -x "${su}" ]]; then
-  echo "- ${su}"
-  echo '  does not work'
-  exit 1
-fi
+usage() {
+  echo "usage: ${0##*/} [-h] [COMMAND]"
+  echo
+  echo 'elevate privileges'
+  echo
+  echo 'options:'
+  echo '  -h  show this help message and exit'
 
-[[ -n "${@}" ]] && opt='-c'
-PATH="${PATH}:/system_ext/bin:/product/bin:/vendor/bin:/system/bin" \
-  exec "${su}" -c "${SHELL}" "${opt}" "${@}"
+  exit "${1}"
+}
+
+main() {
+  local command="${@}"
+  local bin='/system/bin/su'
+
+  if [[ ! -x "${bin}" ]]; then
+    echo "! ${bin} not found" >&2
+    exit 1
+  fi
+
+  [[ "${@}" = '-h' ]] && usage 0
+
+  echo '- ROOT'
+  [[ -n "${@}" ]] && local opt='-c'
+  PATH="${PATH}:/system_ext/bin:/product/bin:/vendor/bin:/system/bin" \
+    exec "${bin}" -c "${SHELL}" "${opt}" "${command}"
+}
+
+main "${@}"
