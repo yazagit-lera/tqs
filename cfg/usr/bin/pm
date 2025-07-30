@@ -1,10 +1,6 @@
 #!/data/data/com.termux/files/usr/bin/env bash
 #
-# Short pacman
+# pacman alias
 set -e
 
-if [[ -n "${@}" ]]; then
-  pacman "${@}"
-else
-  pacman -Scc --noconfirm
-fi
+pacman "${@}"
