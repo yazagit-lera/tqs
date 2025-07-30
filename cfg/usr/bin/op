@@ -34,4 +34,4 @@ if [[ "${1}" == 'c' ]]; then
 fi
 
 pidof -q sshd && pkill sshd
-[[ "${1}" != 'k' ]] && sshd -p1838
+[[ "${1}" != 'k' ]] && sshd -p8022
