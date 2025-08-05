@@ -10,15 +10,16 @@ skip_ssh_algs() {
   done
 }
 
-install_pkgs() {
+pkgs() {
   pacman -S zsh micro openssh git python man file --noconfirm
+  pacman -Rsn command-not-found --noconfirm  # Idi nahui
 }
 
 main() {
   local tmp="${PREFIX}/tmp/tqs"
 
   skip_ssh_algs  
-  install_pkgs
+  pkgs
   
   # Extract files
   local id
