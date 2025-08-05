@@ -1,13 +1,28 @@
 #!/data/data/com.termux/files/usr/bin/env bash
 #
-# Connect to Shizuku, thanks to RikkaW
-# https://github.com/RikkaApps/Shizuku
-
+# Connect to Shizuku (https://github.com/RikkaApps/Shizuku)
 set -e
-dex="${PREFIX}/lib/rish_shizuku.dex"
 
-[[ -w "${dex}" ]] && chmod 400 "${dex}"
-export RISH_APPLICATION_ID='com.termux'
+usage() {
+  echo "usage: ${0##*/} [-h] [COMMAND]"
+  echo
+  echo 'connect to shizuku (https://github.com/rikkaapps/shizuku)'
+  echo
+  echo 'options:'
+  echo '  -h  show this help message and exit'
 
-/system/bin/app_process -Djava.class.path="${dex}" /system/bin \
-  --nice-name=rish rikka.shizuku.shell.ShizukuShellLoader "${@}"
+  exit "${1}"
+}
+
+main() {
+  [[ "${@}" == '-h' ]] && usage 0
+
+  local dex="${HOME}/shizuku/rish_shizuku.dex"
+  [[ -w "${dex}" ]] && chmod 400 "${dex}"
+
+  RISH_APPLICATION_ID='com.termux' /system/bin/app_process --nice-name=rish \
+    -Djava.class.path="${dex}" /system/bin \
+    rikka.shizuku.shell.ShizukuShellLoader -- "${@}"
+}
+
+main "${@}"
