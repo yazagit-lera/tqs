@@ -40,7 +40,7 @@ main() {
   local passconf="${PREFIX}/etc/ssh/sshd_config.d/passauth.conf"
   case "${cmd}" in
     s) sshd -p8022 ;;
-    x) pidof -q sshd && killall sshd ;;
+    x) pidof -q sshd && pkill sshd ;;
     e) 
       [[ ! -f "${HOME}/.termux_authinfo" ]] && passwd
       echo 'PasswordAuthentication yes' > "${passconf}"
