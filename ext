@@ -28,6 +28,7 @@ main() {
   
   chsh -s zsh
   rm -rf -- "${PREFIX}/etc/termux"
+  mkdir -p "${HOME}/shizuku"
   echo > "${PREFIX}/etc/motd"
   [[ ! -d "${HOME}/storage" ]] && termux-setup-storage
   
