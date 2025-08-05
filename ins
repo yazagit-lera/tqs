@@ -29,7 +29,7 @@ bootstrap() {
   zipurl="${zipurl}/download/bootstrap-${arch}.zip"
   "${PREFIX}/bin/curl" -fLZ -o "${PREFIX}/bootstrap.zip" -- "${zipurl}"
   
-  unzip -d "${bootstrap}" -- "${PREFIX}/bootstrap.zip"
+  unzip -d "${bootstrap}" "${PREFIX}/bootstrap.zip"
   cd "${bootstrap}"  # For symlinks
   awk -F '←' '{system("ln -sv '"'"'"$1"'"'"' '"'"'"$2"'"'"' &")}' \
     "${bootstrap}/SYMLINKS.txt"
