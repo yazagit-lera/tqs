@@ -1,11 +1,11 @@
 # tqs
 
-My termux setup
+my termux setup
 
-## Usage
+## Installation
 
 in termux failsafe ("new session" long-tap)
 
 ```shell
-sh -c "$(curl -f 'https://raw.githubusercontent.com/nedorazrab0/tqs/main/ins')"
+sh -c -- "$(curl -f -- 'https://raw.githubusercontent.com/nedorazrab0/tqs/main/ins')"
 ```
