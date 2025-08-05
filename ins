@@ -54,7 +54,7 @@ main() {
 
   local serverlist
   serverlist='https://raw.githubusercontent.com/nedorazrab0/tqs/main/cfg'
-  serverlist="${pacmanconf}/usr/etc/pacman.d/serverlist"
+  serverlist="${serverlist}/usr/etc/pacman.d/serverlist"
   curl -fL -o "${PREFIX}/etc/pacman.conf" -- "${serverlist}"
 
   pacman-key --init
