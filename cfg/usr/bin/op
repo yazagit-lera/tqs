@@ -1,37 +1,51 @@
 #!/data/data/com.termux/files/usr/bin/env bash
 #
-# Openssh helper
-
+# sshd alias
 set -e
-passconf="${PREFIX}/etc/ssh/sshd_config.d/passauth.conf"
 
-if [[ "${@}" =~ '-h' ]]; then
-  cat << 'EOF'
-- (Re)start `sshd`
-  Use option `k` to kill the server
-  and `c` to clear authorized keys
+usage() {
+  echo "usage: ${0##*/} [-h] [-s] [-x] [-e] [-d] [-c]"
+  echo
+  echo 'sshd alias'
+  echo
+  echo 'options:'
+  echo '  -h  show this help message and exit'
+  echo '  -s  start sshd'
+  echo '  -x  kill sshd'
+  echo '  -e  enable password auth'
+  echo '  -d  disable password auth'
+  echo '  -c  clear authorized_keys'
 
-  py - Enable password auth (for first connect)
-  pn - Disable password auth
-- Example:
-  op py
-  op c
-EOF
+  exit "${1}"
+}
 
-  exit 0
-fi
+main() {
+  local OPTARG
+  local arg
 
-if [[ "${1}" == 'pn' ]]; then
-  echo 'PasswordAuthentication no' > "${passconf}"
-elif [[ "${1}" == 'py' ]]; then
-  [[ ! -f "${HOME}/.termux_authinfo" ]] && passwd
-  echo 'PasswordAuthentication yes' > "${passconf}"
-fi
+  # Parse args
+  ((${#} == 0)) && usage 1 >&2
+  while getopts 'hsxedc' arg; do
+    case "${arg}" in
+      s) local cmd="${arg}" ;;
+      x) local cmd="${arg}" ;;
+      e) local cmd="${arg}" ;;
+      d) local cmd="${arg}" ;;
+      c) local cmd="${arg}" ;;
+      h) usage 0 ;;
+      *) usage 1 >&2 ;;
+    esac
+  done
 
-if [[ "${1}" == 'c' ]]; then
-  echo > "${HOME}/.ssh/authorized_keys"
-  exit 0
-fi
+  local passconf="${PREFIX}/etc/ssh/sshd_config.d/passauth.conf"
+  case "${cmd}" in
+    s) sshd -p8022 ;;
+    x) pidof -q sshd && killall sshd ;;
+    e) echo 'PasswordAuthentication yes' > "${passconf}" ;;
+    d) echo 'PasswordAuthentication no' > "${passconf}" ;;
+    c) echo > "${HOME}/.ssh/authorized_keys" ;;
+    *) usage 1 >&2 ;;
+  esac
+}
 
-pidof -q sshd && pkill sshd
-[[ "${1}" != 'k' ]] && sshd -p8022
+main "${@}"
