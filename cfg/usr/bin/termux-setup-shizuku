@@ -1,5 +1,5 @@
 #!/data/data/com.termux/files/usr/bin/env bash
-#
+# SPDX-License-Identifier: 0BSD
 # Setup Shizuku (https://github.com/RikkaApps/Shizuku)
 set -e
 
@@ -13,7 +13,6 @@ usage() {
   echo
   echo "do not forget to export files into ${HOME}/shizuku"
   echo 'after starting shizuku'
-
   exit "${1}"
 }
 
@@ -28,15 +27,12 @@ main() {
 
   local apk="${TMPDIR}/shizuku.apk"
   local conf="${HOME}/.termux/termux.properties"
-
   curl -fL -o "${apk}" "$(get_link)"
-
   echo 'allow-external-apps = true' > "${conf}"
   echo '- Press ENTER to continue'
-  read -r ans && unset ans
-
+  local i
+  read -r i && unset i
   termux-open "${apk}"
-
   echo 'allow-external-apps = false' > "${conf}"
   echo "- After starting shizuku export files into ${HOME}/shizuku"
 }
