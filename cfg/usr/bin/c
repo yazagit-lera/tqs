@@ -1,5 +1,5 @@
 #!/data/data/com.termux/files/usr/bin/env bash
-#
+# SPDX-License-Identifier: 0BSD
 # Get command path
 set -e
 
@@ -10,17 +10,14 @@ usage() {
   echo
   echo 'options:'
   echo '  -h  show this help message and exit'
-
   exit "${1}"
 }
 
 main() {
-  local command="${@}"
-
   ((${#} == 0)) && usage 1 >&2
   [[ "${@}" == '-h' ]] && usage 0
 
-  command -v "${command}"
+  command -v "${@}"
 }
 
 main "${@}"
