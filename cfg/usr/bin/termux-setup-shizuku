@@ -1,6 +1,6 @@
 #!/data/data/com.termux/files/usr/bin/env bash
 # SPDX-License-Identifier: 0BSD
-# install Shizuku (https://github.com/RikkaApps/Shizuku)
+# Install Shizuku (https://github.com/RikkaApps/Shizuku)
 set -e
 
 usage() {
