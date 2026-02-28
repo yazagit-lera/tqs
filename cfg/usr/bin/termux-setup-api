@@ -1,0 +1,38 @@
+#!/data/data/com.termux/files/usr/bin/env bash
+# SPDX-License-Identifier: 0BSD
+# Install termux api
+set -e
+
+usage() {
+  echo "usage: ${0##*/} [-h]"
+  echo
+  echo 'install termux api'
+  echo
+  echo 'options:'
+  echo '  -h  show this help message and exit'
+  exit "${1}"
+}
+
+get_dl_link() {
+  local api_link='https://f-droid.org/api/v1/packages/com.termux.api'
+  local last_version
+  last_version="$(curl -fs ${api_link} \
+    | sed 's/.*"suggestedVersionCode"://; s/,.*//')"
+  echo "https://f-droid.org/repo/com.termux.api_${last_version}.apk"
+}
+
+install_apk() {
+  local apk="${TMPDIR}/api.apk"
+  curl -f -o "${apk}" "$(get_dl_link)"
+  termux-share "${apk}"
+}
+
+main() {
+  [[ "${@}" == '-h' ]] && usage 0
+  ((${#} != 0)) && usage 1 >&2
+
+  install_apk
+  pacman -Syu termux-api --noconfirm
+}
+
+main "${@}"
