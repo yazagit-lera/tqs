@@ -1,17 +1,9 @@
-conf() {
-  set +o history
-  local completion_path='/usr/share/bash-completion/bash_completion'
-  [[ -r "${completion_path}" ]] && . "${completion_path}"
-}
+# Customize bash
 
 main() {
-  # If not running interactively, do not do anything
-  [[ "${-}" != *i* ]] && return
-
-  # Prevent double sourcing
-  if [[ -z "${BASHRCSOURCED}" ]]; then
-    BASHRCSOURCED='Y'
-    conf
+  if [[ -o interactive && -z "${BASHRC_USED}" ]]; then
+    BASHRC_USED='true'
+    set +o history
   fi
 }
 
