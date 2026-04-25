@@ -36,15 +36,15 @@ main() {
     esac
   done
 
-  local passconf="${PREFIX}/etc/ssh/sshd_config.d/passauth.conf"
+  local password_conf="${PREFIX}/etc/ssh/sshd_config.d/password-auth.conf"
   case "${cmd}" in
     s) sshd -p8022 ;;
     x) pidof -q sshd && pkill sshd ;;
-    e) 
+    e)
       [[ ! -f "${HOME}/.termux_authinfo" ]] && passwd
-      echo 'PasswordAuthentication yes' > "${passconf}"
+      echo 'PasswordAuthentication yes' > "${password_conf}"
       ;;
-    d) echo 'PasswordAuthentication no' > "${passconf}" ;;
+    d) echo 'PasswordAuthentication no' > "${password_conf}" ;;
     c) echo > "${HOME}/.ssh/authorized_keys" ;;
     *) usage 1 >&2 ;;
   esac
