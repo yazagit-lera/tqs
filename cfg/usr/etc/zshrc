@@ -1,9 +1,13 @@
 # Customize zsh
 
+zsh_rehash() {
+  rehash
+}
+
 customize() {
   local new_line=$'\n'
   (($(id -u) == 0)) && local is_root='[ROOT] '
-  PROMPT="%B%F{#ccbbff}%? ${is_root}%F{#ffdd44}%~${new_line}%#%b%f "
+  PROMPT="%B%F{#99ccff}%? ${is_root}%F{#ffdd44}%~${new_line}%#%b%f "
 
   unsetopt prompt_cr
   setopt interactivecomments
@@ -13,7 +17,7 @@ customize() {
   compinit -C
   compdef _command kp c
   zstyle ':completion:*' menu select
-  zle -N zsh_rehash rehash
+  zle -N zsh_rehash
 
   bindkey '^[[H' beginning-of-line
   bindkey '^[[F' end-of-line
@@ -33,7 +37,7 @@ set_env() {
 
 main() {
   if [[ -o interactive && -z "${ZSHRC_USED}" ]]; then
-    ZSHRC_USED='true'
+    ZSHRC_USED=1
     set_env
     customize
   fi
