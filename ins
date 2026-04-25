@@ -5,8 +5,7 @@ set -e
 
 check_failsafe() {
   if [ -n "${TERMUX_MAIN_PACKAGE_FORMAT}" ]; then
-    echo '! Not failsafe' >&2
-    echo '- Left edge swipe ==> "new session" (long-tap)' >&2
+    echo 'Not failsafe' >&2
     exit 1
   fi
 }
